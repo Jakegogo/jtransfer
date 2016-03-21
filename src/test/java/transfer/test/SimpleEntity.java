@@ -2,18 +2,14 @@ package transfer.test;
 
 import com.baidu.bjf.remoting.protobuf.FieldType;
 import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
-import dbcache.EntityInitializer;
-import dbcache.IEntity;
 import transfer.anno.Transferable;
 
-import javax.persistence.Id;
 import java.io.Serializable;
 
 //@MappedSuperclass
 @Transferable(id = 1)
-public class SimpleEntity implements EntityInitializer, IEntity<Long>, Serializable {
+public class SimpleEntity implements Serializable {
 
-	@Id
 	@Protobuf(fieldType = FieldType.INT64, order = 1, required = true)
 	public Long id;
 
@@ -38,12 +34,10 @@ public class SimpleEntity implements EntityInitializer, IEntity<Long>, Serializa
 	@Protobuf(fieldType = FieldType.BOOL, order = 8, required = true)
 	private Boolean bool;
 
-	@Override
 	public Long getId() {
 		return id;
 	}
 
-	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -104,13 +98,4 @@ public class SimpleEntity implements EntityInitializer, IEntity<Long>, Serializa
 		this.bool = bool;
 	}
 
-	@Override
-	public void doAfterLoad() {
-
-	}
-
-	@Override
-	public void doBeforePersist() {
-
-	}
 }

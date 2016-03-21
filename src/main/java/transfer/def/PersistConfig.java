@@ -23,6 +23,7 @@ import transfer.serializer.*;
 import transfer.utils.*;
 import transfer.utils.IdentityHashMap;
 
+import java.beans.Transient;
 import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -514,7 +515,7 @@ public class PersistConfig {
 
                     // 忽略静态属性和临时属性
                     if (Modifier.isTransient(field.getModifiers()) || Modifier.isStatic(field.getModifiers()) ||
-                            field.isAnnotationPresent(javax.persistence.Transient.class)) {
+                            field.isAnnotationPresent(Transient.class) || field.isAnnotationPresent(transfer.anno.Transient.class)) {
                         return;
                     }
 

@@ -2,7 +2,7 @@ package transfer.test;
 
 import java.util.Date;
 
-import utils.JsonUtils;
+import com.jake.common.util.JsonUtils;
 import transfer.ByteArray;
 import transfer.Transfer;
 import transfer.def.TransferConfig;

@@ -1,7 +1,7 @@
 package transfer.compile;
 
-import utils.enhance.asm.AsmClassLoader;
-import utils.enhance.asm.util.AsmUtils;
+import com.jake.common.util.asm.AsmClassLoader;
+import com.jake.common.util.asm.util.AsmUtils;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;

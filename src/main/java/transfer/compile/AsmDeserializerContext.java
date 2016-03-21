@@ -1,10 +1,10 @@
 package transfer.compile;
 
+import com.jake.common.util.asm.util.AsmUtils;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-import utils.enhance.asm.util.AsmUtils;
 
 /**
  * 预编译解码器上下文

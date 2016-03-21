@@ -1,6 +1,6 @@
 package transfer.test;
 
-import utils.JsonUtils;
+import com.jake.common.util.JsonUtils;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import org.slf4j.helpers.FormattingTuple;
