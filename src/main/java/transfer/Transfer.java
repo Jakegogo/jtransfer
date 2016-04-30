@@ -274,7 +274,10 @@ public class Transfer {
 
 
     /**
+     * <pre>
      * 迭代解码
+     * 适合朝生夕灭的集合元素为大对象的解析
+     * </pre>
      * @param inputable 输入字节数组
      * @param typeReference 类型定义
      * @param <T> 集合类型类型

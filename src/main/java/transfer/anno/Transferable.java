@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * 传输类注解
  * Created by Jake on 2015/2/26.
  */
-@Target({ ElementType.TYPE})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Transferable {

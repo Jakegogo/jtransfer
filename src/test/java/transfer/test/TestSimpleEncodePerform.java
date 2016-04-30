@@ -16,8 +16,9 @@ import java.io.IOException;
 public class TestSimpleEncodePerform {
 
     public static void main(String[] args) {
-
+        long t1 = System.currentTimeMillis();
         TransferConfig.registerClass(SimpleEntity.class, 1);
+        System.out.println("compile : " + (System.currentTimeMillis() - t1));
 
         Transfer.encodePreCompile(SimpleEntity.class);
 
@@ -27,8 +28,6 @@ public class TestSimpleEncodePerform {
         entity.setStr("str");
         entity.setBool(true);
         entity.setUid(101);
-
-        long t1 = 0l;
 
 
         t1 = System.currentTimeMillis();
