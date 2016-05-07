@@ -90,11 +90,45 @@ public class ByteBuffer implements Outputable {
 
 
     /**
+     * 输出到输出流
+     * @return int 已经传输字节数
+     */
+    public int flushToOutputable(Outputable outputable) {
+        if (offset == 0) {
+            return 0;
+        }
+        if (rootByteArray == curByteArray) {
+            outputable.putBytes(rootByteArray.byteArray, 0, offset);
+            return offset;
+        }
+
+        ByteArr curBytesArr = this.rootByteArray;
+        int loopOffset = 0;
+        do {
+            outputable.putBytes(curBytesArr.byteArray, 0, curBytesArr.offset);
+            loopOffset += curBytesArr.offset;
+        } while ((curBytesArr = curBytesArr.next) != null);
+        return loopOffset;
+    }
+
+    /**
      * 长度
      * @return
      */
     public int length() {
-        return this.offset;
+        if (offset == 0) {
+            return 0;
+        }
+        if (rootByteArray == curByteArray) {
+            return offset;
+        }
+
+        ByteArr curBytesArr = this.rootByteArray;
+        int loopOffset = 0;
+        do {
+            loopOffset += curBytesArr.offset;
+        } while ((curBytesArr = curBytesArr.next) != null);
+        return loopOffset;
     }
 
 

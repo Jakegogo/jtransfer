@@ -16,4 +16,13 @@ public class Request {
      */
     private Object body;
 
+    public RequestHeader getHeader() {
+        return header;
+    }
+
+    public Object getBody() {
+        return body;
+    }
+
+
 }

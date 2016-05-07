@@ -8,9 +8,7 @@ public class TestPrimitive {
 	
 	public static void main(String[] args) {
 
-        ByteArray byteArray = Transfer.encode(1.23f);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(1.23f).toBytes();
 
         System.out.println(bytes.length);
         

@@ -44,9 +44,7 @@ public class TestIteratorPerform {
 
         long t1 = System.currentTimeMillis();
 
-        ByteArray byteArray = Transfer.encode(list);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(list).toBytes();
 
         System.out.println(bytes.length);
 

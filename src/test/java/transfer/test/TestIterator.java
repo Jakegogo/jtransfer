@@ -32,9 +32,7 @@ public class TestIterator {
 
         long t1 = System.currentTimeMillis();
 
-        ByteArray byteArray = Transfer.encode(list);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(list).toBytes();
 
 
         Iterator it = Transfer.iterator(bytes, new TypeReference<Collection>() {

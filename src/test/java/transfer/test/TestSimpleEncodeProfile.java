@@ -28,7 +28,7 @@ public class TestSimpleEncodeProfile {
         long t1 = 0l;
 
         t1 = System.currentTimeMillis();
-        ByteArray byteArray = Transfer.encode(entity);
+        ByteArray byteArray = Transfer.encode(entity).getByteArray();
         System.out.println(byteArray.toBytes().length);
         for (int i = 0; i < 10000000;i++) {
             final IoBuffer iob = IoBuffer.allocate(130);

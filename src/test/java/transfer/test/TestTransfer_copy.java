@@ -50,9 +50,7 @@ public class TestTransfer_copy {
         entity.setStatusHis(asa);
 
 
-        ByteArray byteArray = Transfer.encode(entity, Entity.class);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(entity, Entity.class).toBytes();
         System.out.println(bytes);
         System.out.println("length:" + bytes.length);
 

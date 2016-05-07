@@ -55,10 +55,10 @@ public class TestEncodePerform {
 
 
         t1 = System.currentTimeMillis();
-        ByteArray byteArray = Transfer.encode(entity, Entity.class);
+        ByteArray byteArray = Transfer.encode(entity, Entity.class).getByteArray();
         System.out.println(byteArray.toBytes().length);
         for (int i = 0; i < 10000000;i++) {
-            byteArray = Transfer.encode(entity, Entity.class);
+            byteArray = Transfer.encode(entity, Entity.class).getByteArray();
         }
         System.out.println("the transfer : " + (System.currentTimeMillis() - t1));
 

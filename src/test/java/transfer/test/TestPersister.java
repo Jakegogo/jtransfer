@@ -34,9 +34,7 @@ public class TestPersister {
         entity.getFriends().add(3l);
         entity.setA(null);
 
-        ByteArray byteArray = Persister.encode(entity, 187);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Persister.encode(entity, 187).toBytes();
         System.out.println(bytes);
         System.out.println("persist length:" + bytes.length);
         writeFile("entityBytes", bytes);

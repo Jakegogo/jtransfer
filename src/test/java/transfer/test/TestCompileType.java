@@ -24,7 +24,7 @@ public class TestCompileType {
 		map.put("3", 3);
 		
 		
-		ByteArray byteArray = Transfer.encode(map, type);
+		ByteArray byteArray = Transfer.encode(map, type).getByteArray();
 		
 		Map<String,Integer> dmap1 = Transfer.decode(byteArray, typeReference);
 		
@@ -34,7 +34,7 @@ public class TestCompileType {
 		
 		
 		
-		byteArray = Transfer.encode(map, type);
+		byteArray = Transfer.encode(map, type).getByteArray();
 		
 		Map<String,Integer> dmap2 = Transfer.decode(byteArray, Map.class);
 		

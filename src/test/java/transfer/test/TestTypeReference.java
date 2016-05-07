@@ -21,9 +21,7 @@ public class TestTypeReference {
         entity.getFriends().add(2l);
         entity.getFriends().add(3l);
 
-        ByteArray byteArray = Transfer.encode(entity);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(entity).toBytes();
         System.out.println(bytes);
         System.out.println(bytes.length);
 

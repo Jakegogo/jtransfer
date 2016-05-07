@@ -16,4 +16,11 @@ public class Response {
      */
     private Object body;
 
+    public ResponseHeader getHeader() {
+        return header;
+    }
+
+    public Object getBody() {
+        return body;
+    }
 }

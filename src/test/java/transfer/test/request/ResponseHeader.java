@@ -7,7 +7,7 @@ package transfer.test.request;
 public class ResponseHeader {
 
     /**
-     * 消息总长度
+     * 消息头长度
      */
     private int len = 0;
 

@@ -13,10 +13,7 @@ public class TestNull {
 
         System.out.println(null instanceof Class<?>);
 
-
-        ByteArray byteArray = Transfer.encode(null);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(null).toBytes();
 
         System.out.println(bytes.length);
         

@@ -43,9 +43,7 @@ public class TestIteratorMap {
 
         long t1 = System.currentTimeMillis();
 
-        ByteArray byteArray = Transfer.encode(map);
-
-        byte[] bytes = byteArray.toBytes();
+        byte[] bytes = Transfer.encode(map).toBytes();
 
 
         Iterator<Map.Entry<Integer, Entity>> it = Transfer.iteratorMap(bytes, new TypeReference<Map<Integer, Entity>>() {

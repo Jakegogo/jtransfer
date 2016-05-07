@@ -42,7 +42,7 @@ public class Transfer {
      * 编码
      * @param object 目标对象
      */
-    public static ByteArray encode(Object object) {
+    public static ByteBuffer encode(Object object) {
         return encode(object, 128);
     }
 
@@ -52,16 +52,16 @@ public class Transfer {
      * @param object 目标对象
      * @param bytesLength 编码字节长度(估算)
      */
-    public static ByteArray encode(Object object, int bytesLength) {
+    public static ByteBuffer encode(Object object, int bytesLength) {
         if (object == null) {
             ByteBuffer buffer = new ByteBuffer(1);
             Serializer.NULL_SERIALIZER.serialze(buffer, null, null);
-            return buffer.getByteArray();
+            return buffer;
         }
 
         ByteBuffer buffer = new ByteBuffer(bytesLength);
         encode(buffer, object);
-        return buffer.getByteArray();
+        return buffer;
     }
 
 
@@ -71,7 +71,7 @@ public class Transfer {
      * @param type 指定预编译目标对象的类型
      * @See transfer.Transfer.encodePreCompile(Type)
      */
-    public static ByteArray encode(Object object, Type type) {
+    public static ByteBuffer encode(Object object, Type type) {
         return encode(object, type, 128);
     }
 
@@ -83,16 +83,16 @@ public class Transfer {
      * @param bytesLength 编码字节长度(估算)
      * @See transfer.Transfer.encodePreCompile(Type)
      */
-    public static ByteArray encode(Object object, Type type, int bytesLength) {
+    public static ByteBuffer encode(Object object, Type type, int bytesLength) {
         if (object == null) {
             ByteBuffer buffer = new ByteBuffer(1);
             Serializer.NULL_SERIALIZER.serialze(buffer, null, null);
-            return buffer.getByteArray();
+            return buffer;
         }
 
         ByteBuffer buffer = new ByteBuffer(bytesLength);
         encode(buffer, object, type);
-        return buffer.getByteArray();
+        return buffer;
     }
 
     
