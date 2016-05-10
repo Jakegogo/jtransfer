@@ -32,6 +32,7 @@ public class RequestStreamCodec implements StreamCodec {
         } catch (IOException e) {
             throw new SerializeException(e);
         }
+        // TODO 1.read to buffer   2.submit to decode ThreadPool
         return Transfer.decode(CodecUtil.wrapInputable(in));
     }
 

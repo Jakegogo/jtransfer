@@ -1,18 +1,17 @@
 package transfer.test.socket.codec.bio;
 
-import transfer.exceptions.SerializeException;
-import transfer.test.request.RequestHeader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import transfer.exceptions.SerializeException;
 
 /**
  * 请求流编解码器
  * 用于消息转发和拦截
  * Created by Jake on 5/8 0008.
  */
-public class RequestHeadStreamCodec implements StreamCodec {
+public class ReTransferableStreamCodec implements StreamCodec {
 
     private JTransferStreamCodec defaultCodec = new JTransferStreamCodec();
 

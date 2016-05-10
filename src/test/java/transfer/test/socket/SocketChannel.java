@@ -48,8 +48,8 @@ public abstract class SocketChannel {
 	 */
 	public void init(Socket socket) throws IOException {
 		this.socket = socket;
-		this.is = this.socket.getInputStream();
-		this.os = this.socket.getOutputStream();
+		this.is = socket.getInputStream();
+		this.os = socket.getOutputStream();
 	}
 
 	/**

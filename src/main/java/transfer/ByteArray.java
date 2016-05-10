@@ -92,6 +92,19 @@ public class ByteArray implements Inputable {
         return new ByteArray(byteArr, this.curIndex, this.curIndex += length);
     }
 
+    
+    /**
+     * 输出到输出流
+     * @return int 已经传输字节数
+     */
+    public int flushToOutputable(Outputable outputable) {
+        if (this.curIndex == 0) {
+            return 0;
+        }
+
+        outputable.putBytes(byteArr, 0, (endIndex - startIndex));
+        return endIndex - startIndex;
+    }
 
     public byte[] getByteArr() {
         return byteArr;
