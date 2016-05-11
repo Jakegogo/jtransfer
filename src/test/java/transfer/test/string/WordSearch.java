@@ -48,9 +48,9 @@ public class WordSearch {
 			}
 			this.sensitiveWords = sensitiveWords;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new RuntimeException("初始化单词搜索器异常:", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("初始化单词搜索器异常:", e);
 		} finally {
 			if (reader != null) {
 				try {
@@ -77,9 +77,9 @@ public class WordSearch {
 			}
 			this.sensitiveWords = sensitiveWords;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new RuntimeException("初始化单词搜索器异常:", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("初始化单词搜索器异常:", e);
 		} finally {
 			if (dataInputStream != null) {
 				try {
@@ -96,7 +96,7 @@ public class WordSearch {
 	 * @param contents 文本内容
 	 * @return
 	 */
-	public boolean hasDensitiveWords(List<String> contents) {
+	public boolean hasSensitiveWords(List<String> contents) {
 		
 		for (String content: contents) {
 			for (String word : this.sensitiveWords) {
@@ -111,7 +111,7 @@ public class WordSearch {
 	
 	
 	public static void main(String[] args) {
-		boolean detected = new WordSearch().hasDensitiveWords(Arrays.asList("TMD1","2"));
+		boolean detected = new WordSearch().hasSensitiveWords(Arrays.asList("TMD1","2"));
 		System.out.println("has sensitive words : " + detected);
 	}
 	
