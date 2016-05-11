@@ -9,12 +9,12 @@ public class Request {
     /**
      * 消息头
      */
-    private RequestHeader header;
+    protected RequestHeader header;
 
     /**
      * 消息体
      */
-    private Object body;
+    protected Object body;
 
     public RequestHeader getHeader() {
         return header;

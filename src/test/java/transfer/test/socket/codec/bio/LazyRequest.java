@@ -13,16 +13,18 @@ import transfer.test.request.RequestHeader;
 /**
  * 可转发的Request
  */
-class ReTransferableRequest extends Request {
-    private final ByteArray inputable;
+class LazyRequest extends Request {
+	
+    private transient final ByteArray inputable;
 
-    private volatile RequestHeader header;
+    protected volatile RequestHeader header;
     
-    private volatile Object body;
+    protected volatile Object body;
 
-    private int len;
+    private transient int len;
+    
 
-    public ReTransferableRequest(final InputStream in) {
+    public LazyRequest(final InputStream in) {
         
         byte[] lenBytes = new byte[4];
         try {

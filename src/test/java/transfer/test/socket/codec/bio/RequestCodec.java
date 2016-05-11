@@ -12,7 +12,7 @@ import java.io.OutputStream;
  * 请求流编解码器
  * Created by Jake on 5/8 0008.
  */
-public class RequestStreamCodec implements StreamCodec {
+public class RequestCodec implements StreamCodec {
 
     @Override
     public void encode(Object o, final OutputStream out) {

@@ -1,12 +1,11 @@
 package transfer.test.string;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * 日志分析
@@ -19,9 +18,9 @@ public class BigLogAnalysize {
 	private Map<String, Integer> cache = new HashMap<String, Integer>();
 	
 	/** 文件扫描器 */
-	private Scanner fileScanner;
+	private BufferedReader bufferedReader;
 	/** 文件输入流 */
-	private FileInputStream inputStream;
+	private FileReader fileReader;
 
 	
 	public BigLogAnalysize(String file) {
@@ -33,14 +32,14 @@ public class BigLogAnalysize {
 	 * @param file 文件
 	 */
 	private void initFileInputStream(String file) {
-		FileInputStream inputStream = null;
-		Scanner sc = null;
+		BufferedReader bufferedReader = null;
+		FileReader fileReader = null;
 		try {
-		    inputStream = new FileInputStream(file);
-		    sc = new Scanner(inputStream);
+			fileReader = new FileReader(file);
+			bufferedReader = new BufferedReader(fileReader);
 		    
-			this.inputStream = inputStream;
-			this.fileScanner = sc;
+			this.fileReader = fileReader;
+			this.bufferedReader = bufferedReader;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("初始化日志分析器异常:", e);
 		}
@@ -63,24 +62,30 @@ public class BigLogAnalysize {
 		
 		int count = 0;
 		String line = null;
-		StringTokenizer tokenizer = null;
+		
+		long t1 = System.currentTimeMillis();
 		
 		int lineNum = 0;
 		// 分析文本
-		while(this.fileScanner.hasNextLine()) {
-			line = this.fileScanner.nextLine();
-			tokenizer = new StringTokenizer(line, " \t");
-			if(tokenizer.hasMoreTokens()) {
-				if (level.equals(tokenizer.nextToken())) {
+		try {
+			while((line = bufferedReader.readLine()) != null) {
+				if (line.startsWith(level)) {
 					count ++;
 				}
+				if (++lineNum % 1000000 == 0) {
+					System.out.println(lineNum);
+				}
 			}
-			if (++lineNum % 1000000 == 0) {
-				System.out.println(lineNum);
-			}
+			
+			// 存入缓存
+			cache.put(level, count);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		// 存入缓存
-		cache.put(level, count);
+		
+		System.out.println("total line: " + lineNum);
+		System.out.println("use time: " + (System.currentTimeMillis() - t1));
 	
 		return count;
 	}
@@ -89,14 +94,17 @@ public class BigLogAnalysize {
 	 * 关闭日志分析器
 	 */
 	public void close() {
-		if (inputStream != null) {
+		if (bufferedReader != null) {
 			try {
-				inputStream.close();
+				bufferedReader.close();
 			} catch (IOException e1) {
 			}
 		}
-		if (fileScanner != null) {
-			fileScanner.close();
+		if (fileReader != null) {
+			try {
+				fileReader.close();
+			} catch (IOException e1) {
+			}
 		}
 	}
 	

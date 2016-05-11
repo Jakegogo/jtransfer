@@ -11,15 +11,15 @@ import transfer.exceptions.SerializeException;
  * 用于消息转发和拦截
  * Created by Jake on 5/8 0008.
  */
-public class ReTransferableStreamCodec implements StreamCodec {
+public class LazyRequestCodec implements StreamCodec {
 
-    private JTransferStreamCodec defaultCodec = new JTransferStreamCodec();
+    private JTransferCodec defaultCodec = new JTransferCodec();
 
     @Override
     public void encode(Object o, final OutputStream out) {
         // 转发Request
-        if (o instanceof ReTransferableRequest) {
-            ReTransferableRequest r = ((ReTransferableRequest) o);
+        if (o instanceof LazyRequest) {
+            LazyRequest r = ((LazyRequest) o);
             try {
                 out.write(r.getLen());
             } catch (IOException e) {
@@ -34,7 +34,7 @@ public class ReTransferableStreamCodec implements StreamCodec {
 
     @Override
     public Object decode(InputStream in) {
-        return new ReTransferableRequest(in);
+        return new LazyRequest(in);
     }
 
 

@@ -9,7 +9,7 @@ import java.io.OutputStream;
  * JTransfer流编解码器
  * Created by Jake on 5/8 0008.
  */
-public class JTransferStreamCodec implements StreamCodec {
+public class JTransferCodec implements StreamCodec {
 
     @Override
     public void encode(Object o, final OutputStream out) {

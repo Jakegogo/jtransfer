@@ -1,8 +1,10 @@
 package transfer.test.socket;
 
-import transfer.test.socket.codec.bio.JTransferStreamCodec;
+import transfer.test.socket.codec.bio.JTransferCodec;
 import transfer.test.socket.codec.bio.StreamCodec;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +23,7 @@ public abstract class SocketChannel {
 	/**
 	 * 默认编解码器
 	 */
-	protected static StreamCodec DEFAULT_CODEC = new JTransferStreamCodec();
+	protected static StreamCodec DEFAULT_CODEC = new JTransferCodec();
 
 	/**
 	 * 请求关闭指令
@@ -48,8 +50,8 @@ public abstract class SocketChannel {
 	 */
 	public void init(Socket socket) throws IOException {
 		this.socket = socket;
-		this.is = socket.getInputStream();
-		this.os = socket.getOutputStream();
+		this.is = new BufferedInputStream(socket.getInputStream());
+		this.os = new BufferedOutputStream(socket.getOutputStream());
 	}
 
 	/**
@@ -180,7 +182,12 @@ public abstract class SocketChannel {
 		if (object == null) {
 			return false;
 		}
-		SocketChannel.DEFAULT_CODEC.encode(object, os);
+		try {
+			SocketChannel.DEFAULT_CODEC.encode(object, os);
+			os.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 
