@@ -49,7 +49,7 @@ class LazyRequest extends Request {
     	if (header != null) {
     		return header;
     	}
-        return header = Transfer.decode(inputable, RequestHeaderDTO.class).getHeader();
+        return header = Transfer.decode(inputable, LazyRequestHeader.class).getHeader();
     }
 
     @Override

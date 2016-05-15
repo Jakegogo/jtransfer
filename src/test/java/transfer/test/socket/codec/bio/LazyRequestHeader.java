@@ -5,7 +5,7 @@ import transfer.test.request.RequestHeader;
 /**
  * 消息头解析DTO
  */
-public class RequestHeaderDTO {
+public class LazyRequestHeader {
     /**
      * 消息头
      */
