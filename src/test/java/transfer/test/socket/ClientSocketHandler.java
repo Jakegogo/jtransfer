@@ -7,6 +7,10 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import transfer.test.request.Request;
+import transfer.test.request.Response;
+import transfer.test.socket.codec.TransferUtil;
+
 /**
  * Client Socket处理器
  * 
@@ -17,6 +21,9 @@ public class ClientSocketHandler extends SocketChannel {
 
 	public void handle(Socket socket) throws IOException {
 		super.init(socket);
+		
+		TransferUtil.initMeta();
+		
 		new Thread() {
 			public void run() {
 				ClientSocketHandler.this.handleRead();
@@ -42,7 +49,7 @@ public class ClientSocketHandler extends SocketChannel {
 			// 接收输入
 			try {
 				String s = br.readLine();
-				this.doWriteObject(s);
+				this.doWriteObject(Request.valueOf(0, 0, s));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -73,9 +80,10 @@ public class ClientSocketHandler extends SocketChannel {
 	 * @return
 	 */
 	private String resolveResponse(Object data) {
+		Response response = (Response) data;
 		try {
 			return new StringBuilder("get response : ")
-					.append(data)
+					.append(response.getBody())
 					.append(" client time: ")
 					.append(new SimpleDateFormat("HH:mm:ss").format(new Date()))
 					.toString();

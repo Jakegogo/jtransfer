@@ -1,10 +1,13 @@
 package transfer.test.request;
 
+import transfer.anno.Transferable;
+
 /**
  * 响应消息状态
  * 
  * @author bingshan
  */
+@Transferable(id = -3001)
 public enum ResponseStatus {
 	
 	/**

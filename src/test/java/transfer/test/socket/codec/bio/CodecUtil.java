@@ -107,6 +107,39 @@ public class CodecUtil {
             }
         };
     }
+    
+    
+    /**
+     * 读取int
+     * @param in 输入流
+     * @return
+     */
+    public static int readInt(InputStream in) {
+    	byte[] lenBytes = new byte[4];
+        try {
+            in.read(lenBytes);
+        } catch (IOException e) {
+            throw new DeserializeException(e);
+        }
+        return bytesToInt(lenBytes, 0);
+    }
 
+    
+    /**
+     * 输出int
+     * @param out 输出流
+     * @param val 值
+     */
+    public static void writeInt(OutputStream out, int val) {
+		try {
+			out.write((val >>> 0) & 0xFF);
+			out.write((val >>> 8) & 0xFF);
+			out.write((val >>> 16) & 0xFF);
+			out.write((val >>> 24) & 0xFF);
+		} catch (IOException e) {
+			throw new SerializeException(e);
+		}
+    }
+    
 
 }

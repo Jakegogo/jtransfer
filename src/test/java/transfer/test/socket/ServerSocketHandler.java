@@ -5,6 +5,11 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import transfer.test.request.Request;
+import transfer.test.request.Response;
+import transfer.test.request.ResponseStatus;
+import transfer.test.socket.codec.TransferUtil;
+
 /**
  * ServerSocket处理器
  * 
@@ -20,6 +25,9 @@ public class ServerSocketHandler extends SocketChannel {
 	 */
 	public void handle(Socket socket) throws IOException {
 		super.init(socket);
+		
+		TransferUtil.initMeta();
+		
 		new Thread() {
 			public void run() {
 				ServerSocketHandler.this.handleRead();
@@ -41,7 +49,7 @@ public class ServerSocketHandler extends SocketChannel {
 					+ " request disconnet.");
 
 		} else {
-			String response = dispatchRequest(recieveData);
+			Object response = dispatchRequest(recieveData);
 			this.doWriteObject(response);
 		}
 	}
@@ -52,13 +60,15 @@ public class ServerSocketHandler extends SocketChannel {
 	 * @param data
 	 * @return
 	 */
-	private String dispatchRequest(Object data) {
+	private Object dispatchRequest(Object data) {
+		Request request = (Request) data;
 		try {
-			return new StringBuilder("your send message is : ")
-					.append(data)
+			return Response.valueOf(request.getHeader().getSn(), 0, 0,
+					ResponseStatus.SUCCESS, new StringBuilder("your send message is : ")
+					.append(request.getBody())
 					.append(" server time: ")
 					.append(new SimpleDateFormat("HH:mm:ss").format(new Date()))
-					.toString();
+					.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

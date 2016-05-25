@@ -1,10 +1,7 @@
 package transfer.test.socket.codec.bio;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import transfer.exceptions.SerializeException;
 
 /**
  * 请求流编解码器
@@ -20,12 +17,7 @@ public class LazyRequestCodec implements StreamCodec {
         // 转发Request
         if (o instanceof LazyRequest) {
             LazyRequest r = ((LazyRequest) o);
-            try {
-                out.write(r.getLen());
-            } catch (IOException e) {
-                throw new SerializeException(e);
-            }
-
+            CodecUtil.writeInt(out, r.getLen());
             r.transferTo(out);
             return;
         }

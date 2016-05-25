@@ -1,8 +1,5 @@
 package transfer.test.socket;
 
-import transfer.test.socket.codec.bio.JTransferCodec;
-import transfer.test.socket.codec.bio.StreamCodec;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+
+import transfer.test.socket.codec.bio.LenBasedFrameCodec;
+import transfer.test.socket.codec.bio.StreamCodec;
 
 
 /**
@@ -23,7 +23,7 @@ public abstract class SocketChannel {
 	/**
 	 * 默认编解码器
 	 */
-	protected static StreamCodec DEFAULT_CODEC = new JTransferCodec();
+	protected static StreamCodec DEFAULT_CODEC = new LenBasedFrameCodec();
 
 	/**
 	 * 请求关闭指令

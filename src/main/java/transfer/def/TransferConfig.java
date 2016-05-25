@@ -682,6 +682,7 @@ public class TransferConfig {
         typedDeserializers.put(AtomicLong.class, NumberDeserializer.getInstance());
         typedDeserializers.put(String.class, StringDeserializer.getInstance());
         typedDeserializers.put(Boolean.class, BooleanDeserializer.getInstance());
+        typedDeserializers.put(boolean.class, BooleanDeserializer.getInstance());
         typedDeserializers.put(Enum.class, EnumDeserializer.getInstance());
         typedDeserializers.put(Date.class, DateDeserializer.getInstance());
         typedDeserializers.put(ByteArray.class, ByteArrayWrappDeSerializer.getInstance());

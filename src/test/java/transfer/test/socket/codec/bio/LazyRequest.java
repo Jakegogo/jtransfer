@@ -26,13 +26,7 @@ class LazyRequest extends Request {
 
     public LazyRequest(final InputStream in) {
         
-        byte[] lenBytes = new byte[4];
-        try {
-            in.read(lenBytes);
-        } catch (IOException e) {
-            throw new DeserializeException(e);
-        }
-        this.len = CodecUtil.bytesToInt(lenBytes, 0);
+        this.len = CodecUtil.readInt(in);
         
         byte[] bytes = new byte[this.len];
         try {
