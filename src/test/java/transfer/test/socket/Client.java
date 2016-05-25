@@ -5,6 +5,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import transfer.test.socket.codec.TransferUtil;
+
 /**
  * Socket 连接客户端
  * @author Administrator
@@ -15,6 +17,7 @@ public class Client {
 	private ClientSocketHandler clientSocketHandler;
 	
 	public Client() {
+		TransferUtil.initMeta();
 	}
 	
 	public void connect(String serverIp, int serverPort) throws UnknownHostException, IOException {

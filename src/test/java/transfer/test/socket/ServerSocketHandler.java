@@ -8,7 +8,6 @@ import java.util.Date;
 import transfer.test.request.Request;
 import transfer.test.request.Response;
 import transfer.test.request.ResponseStatus;
-import transfer.test.socket.codec.TransferUtil;
 
 /**
  * ServerSocket处理器
@@ -25,8 +24,6 @@ public class ServerSocketHandler extends SocketChannel {
 	 */
 	public void handle(Socket socket) throws IOException {
 		super.init(socket);
-		
-		TransferUtil.initMeta();
 		
 		new Thread() {
 			public void run() {

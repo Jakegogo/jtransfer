@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
+import transfer.test.socket.codec.TransferUtil;
+
 /**
  * Socket服务端
  * 
@@ -21,6 +23,7 @@ public class Server {
 	private boolean stop = false;
 
 	public Server() {
+		TransferUtil.initMeta();
 	}
 
 	/**

@@ -9,7 +9,6 @@ import java.util.Date;
 
 import transfer.test.request.Request;
 import transfer.test.request.Response;
-import transfer.test.socket.codec.TransferUtil;
 
 /**
  * Client Socket处理器
@@ -21,8 +20,6 @@ public class ClientSocketHandler extends SocketChannel {
 
 	public void handle(Socket socket) throws IOException {
 		super.init(socket);
-		
-		TransferUtil.initMeta();
 		
 		new Thread() {
 			public void run() {
