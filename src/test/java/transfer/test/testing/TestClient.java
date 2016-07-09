@@ -17,7 +17,7 @@ import transfer.test.socket.codec.TransferUtil;
 public class TestClient {
 	
 	private TestClientHandler clientSocketHandler;
-	
+
 	public TestClient() {
 		TransferUtil.initMeta();
 	}
@@ -42,6 +42,7 @@ public class TestClient {
 		Date date = new Date();
 		for (int i = 0; i < 164000;i++) {
 			client.clientSocketHandler.send(i);
+			System.out.println("send " + i);
 		}
 		Thread.sleep(2000);
 		System.out.println(new SimpleDateFormat("HH:mm:ss.SSS").format(date));

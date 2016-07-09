@@ -13,12 +13,12 @@ import java.io.IOException;
 /**
  * Created by Administrator on 2015/2/26.
  */
-public class TestEncodePerform {
+public class TestTogether {
 
     public static void main(String[] args) {
 
         TransferConfig.registerClass(Entity.class, 1);
-        
+
         Transfer.encodePreCompile(Entity.class);
 
         Entity entity = new Entity();
@@ -46,7 +46,7 @@ public class TestEncodePerform {
                 // 序列化
                 byte[] bb = simpleTypeCodec.encode(entity);
                 // 反序列化
-    //            SimpleTypeTest newStt = simpleTypeCodec.decode(bb);
+                Entity newStt = simpleTypeCodec.decode(bb);
             }
             System.out.println("protobuff : " + (System.currentTimeMillis() - t1));
         } catch (IOException e) {
@@ -59,6 +59,7 @@ public class TestEncodePerform {
         System.out.println(byteArray.toBytes().length);
         for (int i = 0; i < 10000000;i++) {
             byteArray = Transfer.encode(entity, Entity.class).getByteArray();
+            Transfer.decode(byteArray, Entity.class);
         }
         System.out.println("the transfer : " + (System.currentTimeMillis() - t1));
 
@@ -68,36 +69,46 @@ public class TestEncodePerform {
         t1 = System.currentTimeMillis();
         for (int i = 0; i < 10000000;i++) {
             byte[] bytes = ProtostuffUtils.object2Bytes(entity);
+            ProtostuffUtils.bytes2Object(bytes, Entity.class);
         }
         System.out.println("protostuff : " + (System.currentTimeMillis() - t1));
 
 
 
         t1 = System.currentTimeMillis();
-        System.out.println(JsonUtils.object2JsonString(entity).getBytes().length);
         for (int i = 0; i < 10000000;i++) {
-            JsonUtils.object2Bytes(entity);
+            byte[] bytes = JsonUtils.object2Bytes(entity);
+            JsonUtils.bytes2Object(bytes);
         }
         System.out.println("fastjson to bytes : " + (System.currentTimeMillis() - t1));
 
 
 
         t1 = System.currentTimeMillis();
-        System.out.println(JsonUtils.object2Bytes(entity).length);
         for (int i = 0; i < 10000000;i++) {
-            JsonUtils.object2JsonString(entity).getBytes();
+            String s = JsonUtils.object2JsonString(entity);
+            JsonUtils.jsonString2Object(s, Entity.class);
         }
         System.out.println("fastjson to string : " + (System.currentTimeMillis() - t1));
 
 
 
-        
+
         t1 = System.currentTimeMillis();
         for (int i = 0; i < 10000000;i++) {
-        	JacksonUtils.object2JsonString(entity);
+            String s = JacksonUtils.object2JsonString(entity);
+            JacksonUtils.jsonString2Object(s, Entity.class);
         }
         System.out.println("jackson : " + (System.currentTimeMillis() - t1));
-        
+
+
+
+
+
+        System.out.println(JsonUtils.object2JsonString(entity).getBytes().length);
+        System.out.println(JsonUtils.object2Bytes(entity).length);
+
+
 
 
     }
