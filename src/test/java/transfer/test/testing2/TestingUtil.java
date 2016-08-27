@@ -1,4 +1,4 @@
-package transfer.test.testing;
+package transfer.test.testing2;
 
 import java.lang.reflect.Type;
 

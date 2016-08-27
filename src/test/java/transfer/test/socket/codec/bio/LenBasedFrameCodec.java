@@ -22,7 +22,6 @@ public class LenBasedFrameCodec implements StreamCodec {
     @Override
     public Object decode(final InputStream in) {
     	CodecUtil.readInt(in);
-        // TODO 1.read to buffer   2.submit to decode ThreadPool
         return Transfer.decode(CodecUtil.wrapInputable(in));
     }
 

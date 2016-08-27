@@ -2,13 +2,15 @@ package transfer.test.request;
 
 import transfer.anno.Transferable;
 
+import java.io.Serializable;
+
 /**
  * 响应消息状态
  * 
  * @author bingshan
  */
 @Transferable(id = -3001)
-public enum ResponseStatus {
+public enum ResponseStatus implements Serializable {
 	
 	/**
 	 * 未知错误

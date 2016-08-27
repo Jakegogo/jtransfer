@@ -80,7 +80,9 @@ public class CodecUtil {
             @Override
             public byte getByte() {
                 try {
-                    return (byte) in.read();
+                    byte[] bytes = new byte[1];
+                    for (int count = 0; (count += in.read(bytes, count, bytes.length - count)) < bytes.length;);
+                    return bytes[0];
                 } catch (IOException e) {
                     throw new DeserializeException(e);
                 }
@@ -89,7 +91,7 @@ public class CodecUtil {
             @Override
             public void getBytes(byte[] bytes) {
                 try {
-                    in.read(bytes);
+                    for (int count = 0; (count += in.read(bytes, count, bytes.length - count)) < bytes.length;);
                 } catch (IOException e) {
                     throw new DeserializeException(e);
                 }
@@ -99,7 +101,7 @@ public class CodecUtil {
             public ByteArray getByteArray(int length) {
                 byte[] bytes = new byte[length];
                 try {
-                    in.read(bytes);
+                    for (int count = 0; (count += in.read(bytes, count, length - count)) < length;);
                     return new ByteArray(bytes);
                 } catch (IOException e) {
                     throw new DeserializeException(e);
@@ -115,13 +117,13 @@ public class CodecUtil {
      * @return
      */
     public static int readInt(InputStream in) {
-    	byte[] lenBytes = new byte[4];
+    	byte[] bytes = new byte[4];
         try {
-            in.read(lenBytes);
+            for (int count = 0; (count += in.read(bytes, count, bytes.length - count)) < bytes.length;);
         } catch (IOException e) {
             throw new DeserializeException(e);
         }
-        return bytesToInt(lenBytes, 0);
+        return bytesToInt(bytes, 0);
     }
 
     
@@ -141,5 +143,4 @@ public class CodecUtil {
 		}
     }
     
-
 }

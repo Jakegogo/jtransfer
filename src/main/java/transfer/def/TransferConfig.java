@@ -84,6 +84,24 @@ public class TransferConfig {
     /**
      * 注册类
      * @param clazz 传输类
+     */
+    public static void registerClass(Class<?> clazz) {
+        // 获取唯一标识
+        if (clazz.isAnnotationPresent(Transferable.class)) {
+
+            Transferable transferable = clazz.getAnnotation(Transferable.class);
+
+            int classId = transferable.id();
+
+            registerClass(clazz, classId);
+            return;
+        }
+        throw new IllegalArgumentException("为标注唯一标识,参考:@Transferable");
+    }
+
+    /**
+     * 注册类
+     * @param clazz 传输类
      * @param id 唯一编号
      */
     public static void registerClass(Class<?> clazz, int id) {

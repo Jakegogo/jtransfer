@@ -12,11 +12,10 @@ public class BigLogCreator {
 	public static void main(String[] args) throws IOException {
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter("1.log"));
-		
-		for (int i = 0; i< 100000000;i++) {
+		for (int i = 0; i< 100000;i++) {
 			writer.write(randomLevel());
 			writer.write('\t');
-			writer.write("1234567890");
+			writer.write("{\"clientId\": \"guidxx_1\", \"title\": \"测试宝贝01\", \"price\": 10.0, \"quantity\": 100, \"location\": \"杭州\", \"isFreeShip\": false, \"telephone\": \"16354745843\"}");
 			writer.newLine();
 		}
 		

@@ -18,11 +18,15 @@ public class TransferUtil {
 	 */
 	public static void initMeta() {
 		Collection<Class<?>> metaClasses = PackageScanner.filterByAnnotation(TransferUtil.class.getClassLoader(), Transferable.class, "transfer.test");
-		
+
 		for (Class<?> clz : metaClasses) {
 			TransferConfig.preCompileDeserializer(clz);
 			TransferConfig.preCompileSerializer(clz);
 		}
+//		for (Class<?> clz : metaClasses) {
+//			TransferConfig.registerClass(clz);
+//		}
+
 	}
 	
 }

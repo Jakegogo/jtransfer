@@ -2,12 +2,14 @@ package transfer.test.request;
 
 import transfer.anno.Transferable;
 
+import java.io.Serializable;
+
 /**
  * 响应消息格式
  * Created by Jake on 4/30 0030.
  */
 @Transferable(id = -2001)
-public class Response {
+public class Response implements Serializable {
 
     /**
      * 消息头

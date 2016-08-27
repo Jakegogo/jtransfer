@@ -50,8 +50,12 @@ public abstract class SocketChannel {
 	 */
 	public void init(Socket socket) throws IOException {
 		this.socket = socket;
-		this.is = new BufferedInputStream(socket.getInputStream());
-		this.os = new BufferedOutputStream(socket.getOutputStream());
+		this.is = new BufferedInputStream(socket.getInputStream());// 使用BufferedInputStream性能有显著提升
+		this.os = new BufferedOutputStream(socket.getOutputStream());// 使用BufferedOutputStream性能有显著提升
+		this.afterInit();
+	}
+
+	protected void afterInit() throws IOException {
 	}
 
 	/**

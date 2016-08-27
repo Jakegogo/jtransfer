@@ -1,13 +1,16 @@
-package transfer.test.socket;
-
-import java.io.IOException;
-import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package transfer.test.testing2;
 
 import transfer.test.request.Request;
 import transfer.test.request.Response;
 import transfer.test.request.ResponseStatus;
+import transfer.test.socket.SocketChannel;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * ServerSocket处理器
@@ -15,7 +18,16 @@ import transfer.test.request.ResponseStatus;
  * @author Administrator
  *
  */
-public class ServerSocketHandler extends SocketChannel {
+public class TestServerSocketHandler extends SocketChannel {
+	protected ObjectInputStream ois;
+	protected ObjectOutputStream oos;
+
+	public void init(Socket socket) throws IOException {
+		this.socket = socket;
+		this.ois = new ObjectInputStream(socket.getInputStream());
+		this.oos = new ObjectOutputStream(socket.getOutputStream());
+		this.afterInit();
+	}
 
 	/**
 	 * 处理接收到的连接
@@ -23,11 +35,11 @@ public class ServerSocketHandler extends SocketChannel {
 	 * @throws IOException
 	 */
 	public void handle(Socket socket) throws IOException {
-		super.init(socket);
+		this.init(socket);
 		
 		new Thread() {
 			public void run() {
-				ServerSocketHandler.this.handleRead();
+				TestServerSocketHandler.this.handleRead();
 			};
 		}.start();
 	}
@@ -41,10 +53,48 @@ public class ServerSocketHandler extends SocketChannel {
 	protected void handleMessage(Object recieveData) throws IOException {
 		if (CLOSE_COMMAND.equals(recieveData)) {
 			this.close = true;
+
+			System.out.println("client " + this.socket.getRemoteSocketAddress()
+					+ " request disconnet.");
+
 		} else {
 			Object response = dispatchRequest(recieveData);
 			this.doWriteObject(response);
 		}
+	}
+
+
+	/**
+	 * 读取对象数据
+	 *
+	 * @return
+	 * @throws IOException
+	 */
+	protected Object doReadObject() throws IOException {
+		try {
+			return this.ois.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 写入对象数据
+	 *
+	 * @return
+	 */
+	protected boolean doWriteObject(Object object) {
+		if (object == null) {
+			return false;
+		}
+		try {
+			this.oos.writeObject(object);
+			this.oos.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	/**

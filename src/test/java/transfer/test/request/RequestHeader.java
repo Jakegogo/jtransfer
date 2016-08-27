@@ -1,5 +1,6 @@
 package transfer.test.request;
 
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import transfer.anno.Transferable;
@@ -9,7 +10,7 @@ import transfer.anno.Transferable;
  * Created by Jake on 4/30 0030.
  */
 @Transferable(id = -1002)
-public class RequestHeader {
+public class RequestHeader implements Serializable {
 
     /**
      * 消息头长度
